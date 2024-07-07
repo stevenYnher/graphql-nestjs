@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: graphql-app
+  template:
+    metadata:
+      labels:
+        app: graphql-app
+    spec:
+      containers:
+        - name: graphql-app
+          image: eseynoa/graphql-app:latest #Sustituir por la ubicacion de su imagen
+          ports:
+            - containerPort: 3000
+          env: #sustituir por las credenciales de su DB.
+            - name: TYPEORM_HOST
+              value: 'graphql-1.chk2ke4o0cff.us-east-2.rds.amazonaws.com'
+            - name: TYPEORM_PORT
+              value: '5432'
+            - name: TYPEORM_USERNAME
+              value: 'root'
+            - name: TYPEORM_PASSWORD
+              value: 'b0GwIqbHOcZ7zz6tct25'
+            - name: TYPEORM_DATABASE
+              value: 'postgres'
+            - name: TYPEORM_SYNCHRONIZE
+              value: 'true'
+            - name: TYPEORM_LOGGING
+              value: 'true'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: graphql-app
