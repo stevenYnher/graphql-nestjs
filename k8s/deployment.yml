@@ -17,6 +17,13 @@ spec:
           image: eseynoa/graphql-app:latest #Sustituir por la ubicacion de su imagen
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: '100m' # 0.1 cores
+              memory: '128Mi' # 128 MB
+            limits:
+              cpu: '200m' # 0.2 cores
+          s    memory: '256Mi'
           env: #sustituir por las credenciales de su DB.
             - name: TYPEORM_HOST
               value: 'graphql-1.chk2ke4o0cff.us-east-2.rds.amazonaws.com'
@@ -32,13 +39,7 @@ spec:
               value: 'true'
             - name: TYPEORM_LOGGING
               value: 'true'
-          resources:
-            requests:
-              cpu: '100m' # 0.1 cores
-              memory: '128Mi' # 128 MB
-            limits:
-              cpu: '200m' # 0.2 cores
-              memory: '256Mi'
+          
 ---
 apiVersion: v1
 kind: Service
