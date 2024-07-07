@@ -23,7 +23,7 @@ spec:
               memory: '128Mi' # 128 MB
             limits:
               cpu: '200m' # 0.2 cores
-          s    memory: '256Mi'
+              memory: '256Mi'
           env: #sustituir por las credenciales de su DB.
             - name: TYPEORM_HOST
               value: 'graphql-1.chk2ke4o0cff.us-east-2.rds.amazonaws.com'
