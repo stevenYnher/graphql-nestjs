@@ -32,6 +32,13 @@ spec:
               value: 'true'
             - name: TYPEORM_LOGGING
               value: 'true'
+          resources:
+            requests:
+              cpu: '100m' # 0.1 cores
+              memory: '128Mi' # 128 MB
+            limits:
+              cpu: '200m' # 0.2 cores
+              memory: '256Mi'
 ---
 apiVersion: v1
 kind: Service
@@ -40,7 +47,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 80
-      targetPort: 3000
+    - protocol: TCP
+        port: 3000
+        targetPort: 3000
+        nodePort: 32000
   selector:
     app: graphql-app
